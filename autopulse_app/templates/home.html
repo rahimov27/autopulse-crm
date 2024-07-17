@@ -5,10 +5,10 @@
     {% if user.is_authenticated %}
         <h1>Cars...</h1>
         {% if cars %}
-            <table class="table table-striped table-hover table-bordered">
-                <thead class="table-dark">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col">N</th>
                         <th scope="col">VIN</th>
                         <th scope="col">IMEI</th>
                         <th scope="col">Name</th>
@@ -17,20 +17,28 @@
                         <th scope="col">OL</th>
                         <th scope="col">Financial</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for car in cars %}
                     <tr>
-                        <th scope="row"> <a href="{% url 'car' car.id %}">{{ car.id }}</th>
+                        <th scope="row">{{ car.id }}</th>
                         <td>{{ car.vin }}</td>
                         <td>{{ car.imei }}</td>
                         <td>{{ car.name }}</td>
                         <td>{{ car.renter_name }}</td>
-                        <td>{{ car.mountly_limit }}/mi</td>
+                        <td>{{ car.monthly_limit }}/mi</td>
                         <td>{{ car.oil_change }}/mi</td>
                         <td>${{ car.financial }}</td>
                         <td>{{ car.status }}</td>
+                        <td>
+                            <a href="{% url 'car' car.id %}" class="btn btn-info">View</a>
+                            <form action="{% url 'delete_car' car.id %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

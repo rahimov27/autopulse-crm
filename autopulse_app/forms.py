@@ -69,7 +69,7 @@ class AddCarForm(forms.ModelForm):
             "imei",
             "name",
             "renter_name",
-            "mountly_limit",
+            "monthly_limit",
             "oil_change",
             "financial",
             "status",
@@ -87,8 +87,8 @@ class AddCarForm(forms.ModelForm):
             "renter_name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Renter Name"}
             ),
-            "mountly_limit": forms.NumberInput(
-                attrs={"class": "form-control", "placeholder": "Mountly Limit"}
+            "monthly_limit": forms.NumberInput(
+                attrs={"class": "form-control", "placeholder": "Monthly Limit"}
             ),
             "oil_change": forms.NumberInput(
                 attrs={"class": "form-control", "placeholder": "Oil Change"}
@@ -103,7 +103,7 @@ class AddCarForm(forms.ModelForm):
             "imei": "",
             "name": "",
             "renter_name": "",
-            "mountly_limit": "",
+            "monthly_limit": "",
             "oil_change": "",
             "financial": "",
             "status": "",
