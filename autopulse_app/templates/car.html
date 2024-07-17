@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="col-md-6 offset-md-3">
+    <h1>Customer Car Details</h1>
+    <p>{{ customer_car.vin }}</p>
+    <p>{{ customer_car.imei }}</p>
+    <p>{{ customer_car.name }}</p>
+    <p>{{ customer_car.renter_name }}</p>
+    <p>{{ customer_car.monthly_limit }}/mi</p>
+    <p>{{ customer_car.oil_change }}/mi</p>
+    <p>${{ customer_car.financial }}</p>
+    <p>{{ customer_car.status }}</p>
+
+    <form action="{% url 'delete_car' customer_car.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+{% endblock %}

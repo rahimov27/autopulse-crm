@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Car
 
 
 class SignUpForm(UserCreationForm):
@@ -58,3 +59,58 @@ class SignUpForm(UserCreationForm):
         self.fields["password2"].help_text = (
             '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
         )
+
+
+class AddCarForm(forms.ModelForm):
+    class Meta:
+        model = Car
+        fields = [
+            "vin",
+            "imei",
+            "name",
+            "renter_name",
+            "mountly_limit",
+            "oil_change",
+            "financial",
+            "status",
+        ]
+        widgets = {
+            "vin": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "VIN"}
+            ),
+            "imei": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "IMEI"}
+            ),
+            "name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Name"}
+            ),
+            "renter_name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Renter Name"}
+            ),
+            "mountly_limit": forms.NumberInput(
+                attrs={"class": "form-control", "placeholder": "Mountly Limit"}
+            ),
+            "oil_change": forms.NumberInput(
+                attrs={"class": "form-control", "placeholder": "Oil Change"}
+            ),
+            "financial": forms.NumberInput(
+                attrs={"class": "form-control", "placeholder": "Financial"}
+            ),
+            "status": forms.Select(attrs={"class": "form-control"}),
+        }
+        labels = {
+            "vin": "",
+            "imei": "",
+            "name": "",
+            "renter_name": "",
+            "mountly_limit": "",
+            "oil_change": "",
+            "financial": "",
+            "status": "",
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(AddCarForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs["class"] = "form-control"
+            field.label = ""
