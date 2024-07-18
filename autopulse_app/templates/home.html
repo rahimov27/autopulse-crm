@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="col-md-8 offset-md-2">
     {% if user.is_authenticated %}
         <h1>Cars...</h1>
         {% if cars %}
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">N</th>
+                        <th scope="col">ID</th>
                         <th scope="col">VIN</th>
                         <th scope="col">IMEI</th>
                         <th scope="col">Name</th>
@@ -33,7 +32,8 @@
                         <td>${{ car.financial }}</td>
                         <td>{{ car.status }}</td>
                         <td>
-                            <a href="{% url 'car' car.id %}" class="btn btn-info">View</a>
+                            <a href="{% url 'car' car.id %}" class="btn btn-primary">View</a>
+                            <a href="{% url 'update_car' car.id %}" class="btn btn-secondary">Update</a>
                             <form action="{% url 'delete_car' car.id %}" method="POST" style="display:inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -47,10 +47,22 @@
             <p>No cars available.</p>
         {% endif %}
     {% else %}
+    <body>
+        <style>
+            @import url('https://fonts.cdnfonts.com/css/lufga');
+            body {
+                background-color: #242425;
+                font-family: 'Lufga', sans-serif;
+            }
+            .form-control {
+                border: 1px solid #868686;
+                border-radius: 0px;
+            }
+        </style>
         <h1>Login</h1>
         <form action="{% url 'home' %}" method="POST">
             {% csrf_token %}
-            <div class="mb-3">
+            <div class="mb-2">
                 <input type="text" class="form-control" name="username" placeholder="Username" required>
             </div>
             <div class="mb-3">
@@ -59,5 +71,5 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     {% endif %}
-</div>
+</body>
 {% endblock %}

@@ -1,16 +1,30 @@
-from django.shortcuts import get_object_or_404, render, redirect
+# views.py
+from rest_framework import viewsets, permissions
+from .models import Car
+from .serializers import CarSerializer
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import AddCarForm, SignUpForm
-from .models import Car
+from .forms import AddCarForm, SignUpForm, UpdateCarForm
+
+
+class CarViewSet(viewsets.ModelViewSet):
+    serializer_class = CarSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Car.objects.filter(user=user)
+        imei = self.request.query_params.get("imei", None)
+        if imei is not None:
+            queryset = queryset.filter(imei=imei)
+        return queryset
 
 
 def home(request):
-    if request.user.is_authenticated:
-        cars = Car.objects.filter(user=request.user)
-    else:
-        cars = None
-
+    cars = (
+        Car.objects.filter(user=request.user) if request.user.is_authenticated else None
+    )
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -22,7 +36,6 @@ def home(request):
         else:
             messages.error(request, "There was an error logging in. Please try again.")
             return redirect("home")
-
     return render(request, "home.html", {"cars": cars})
 
 
@@ -45,7 +58,6 @@ def register_user(request):
             return redirect("home")
     else:
         form = SignUpForm()
-
     return render(request, "register.html", {"form": form})
 
 
@@ -60,7 +72,7 @@ def customer_car(request, pk):
 
 def delete_car(request, pk):
     if request.user.is_authenticated:
-        car_to_delete = get_object_or_404(Car, pk=pk, user=request.user)
+        car_to_delete = get_object_or_404(Car, id=pk, user=request.user)
         car_to_delete.delete()
         messages.success(request, "You deleted the car successfully.")
         return redirect("home")
@@ -84,5 +96,28 @@ def add_car(request):
             )
     else:
         form = AddCarForm()
-
     return render(request, "add_car.html", {"form": form})
+
+
+def dashboard(request):
+    cars = (
+        Car.objects.filter(user=request.user) if request.user.is_authenticated else None
+    )
+    return render(request, "dashboard.html", {"cars": cars})
+
+
+def update_car(request, pk):
+    car = get_object_or_404(Car, pk=pk, user=request.user)
+    if request.method == "POST":
+        form = AddCarForm(request.POST, instance=car)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Car updated successfully.")
+            return redirect("home")
+        else:
+            messages.error(
+                request, "There was an error updating the car. Please try again."
+            )
+    else:
+        form = AddCarForm(instance=car)
+    return render(request, "update_car.html", {"form": form, "car": car})
