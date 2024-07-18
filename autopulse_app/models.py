@@ -13,9 +13,8 @@ class Car(models.Model):
     oil_change = models.IntegerField()
     financial = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=100)
-    final_odometer = models.IntegerField(
-        blank=True, null=True
-    )  # Ensure this field exists
+    final_odometer = models.IntegerField(blank=True, null=True)
+    car_image = models.ImageField(null=True, blank=True, upload_to="images/")
 
     def __str__(self):
         return self.name

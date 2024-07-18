@@ -26,6 +26,7 @@ class AddCarForm(forms.ModelForm):
             "financial",
             "status",
             "final_odometer",
+            "car_image",
         ]
 
 
@@ -42,4 +43,5 @@ class UpdateCarForm(forms.ModelForm):
             "financial",
             "status",
             "final_odometer",
+            "car_image",
         ]

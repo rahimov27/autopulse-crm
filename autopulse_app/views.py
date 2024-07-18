@@ -83,7 +83,7 @@ def delete_car(request, pk):
 
 def add_car(request):
     if request.method == "POST":
-        form = AddCarForm(request.POST)
+        form = AddCarForm(request.POST, request.FILES)
         if form.is_valid():
             car = form.save(commit=False)
             car.user = request.user

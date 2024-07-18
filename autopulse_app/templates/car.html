@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
 <div class="col-md-6 offset-md-3">
 <div class="accordion" id="accordionExample">
     <div class="accordion-item">
@@ -20,6 +19,9 @@
                 <p>{{ customer_car.oil_change }}/mi</p>
                 <p>${{ customer_car.financial }}</p>
                 <p>{{ customer_car.status }}</p>
+                {% if customer_car.car_image %}
+                    <img width="300" height="200" src="{{ customer_car.car_image.url }}" alt="Car Image">
+                {% endif %}
                 <form action="{% url 'delete_car' customer_car.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -28,8 +30,6 @@
         </div>
     </div>
 </div>
-    
-
-    
 </div>
+
 {% endblock %}

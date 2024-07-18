@@ -80,13 +80,6 @@ TEMPLATES = [
 #     ],
 # }
 
-STATIC_URL = "/static/"
-
-# This assumes your static files are in the 'assets' directory within your app
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "autopulse_app/assets"),
-]
-
 WSGI_APPLICATION = "crm_project.wsgi.application"
 
 
@@ -139,7 +132,16 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+# The directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# Additional locations of static files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "autopulse_app/static"),
+]
+
+# Media files (Uploaded by users)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

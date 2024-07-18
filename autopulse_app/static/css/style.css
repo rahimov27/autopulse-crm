@@ -1,0 +1,9 @@
+@import url('https://fonts.cdnfonts.com/css/lufga');
+body{
+    background-color: #191919;
+    font-family: 'Lufga', sans-serif;
+}
+
+.main-title{
+    font-size: 50px;
+}

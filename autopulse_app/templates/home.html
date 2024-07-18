@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h1>Cars...</h1>
+        <h1 class="main-title">Cars...</h1>
         {% if cars %}
             <table class="table table-striped">
                 <thead>
@@ -47,7 +47,6 @@
             <p>No cars available.</p>
         {% endif %}
     {% else %}
-    <body>
         <style>
             @import url('https://fonts.cdnfonts.com/css/lufga');
             body {
@@ -71,5 +70,4 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     {% endif %}
-</body>
 {% endblock %}
