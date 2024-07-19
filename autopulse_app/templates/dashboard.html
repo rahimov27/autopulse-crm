@@ -14,9 +14,11 @@
     
 </style>
 
+
+
 <div class="dash-top-buttons">
     <button class="active-button"><img src="{% static 'images/dashboard.svg' %}" alt="Dashboard Icon">Dashboard</button>
-    <button class="support-button"><img src="{% static 'images/headphone.svg' %}" alt="Dashboard Icon"> Support</button>
+    <button onclick="openModal()" id="supportBtn" class="support-button"><img src="{% static 'images/headphone.svg' %}" alt="Dashboard Icon"> Support</button>
 </div>
 <br>
 <div class="dashboard-row-first">
@@ -126,6 +128,29 @@
 <br>
 <br>
 
+
+<div id="modal" class="supportModal">
+    <p>Call us</p>
+    <button onclick="closeModal()" id="closeSupport">Close</button>
+</div>
+
+<script>
+    var supportButton = document.getElementById("supportBtn");
+    var modal = document.getElementById("modal");
+    var closeSupportBtn = document.getElementById("closeSupport");
+
+
+    function openModal(){
+        modal.style.display = "block";
+    }
+
+    function closeModal(){
+        modal.style.display = "none";
+    }
+
+
+    
+</script>
 
 {% endif %}
 {% endblock %}

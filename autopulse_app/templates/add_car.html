@@ -1,12 +1,54 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="col-md-6 offset-md-3">
-    <h1>Add Car</h1>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Add Car</button>
-    </form>
+<div class="container mt-5">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="text-center mb-4">Add Car</h1>
+        <form method="POST" enctype="multipart/form-data" class="p-4 shadow-sm rounded bg-light">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_vin" class="form-label">VIN</label>
+                <input type="text" class="form-control" id="id_vin" name="vin" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_imei" class="form-label">IMEI</label>
+                <input type="text" class="form-control" id="id_imei" name="imei" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="id_name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_renter_name" class="form-label">Renter Name</label>
+                <input type="text" class="form-control" id="id_renter_name" name="renter_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_monthly_limit" class="form-label">Monthly Limit</label>
+                <input type="number" class="form-control" id="id_monthly_limit" name="monthly_limit" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_oil_change" class="form-label">Oil Change</label>
+                <input type="number" class="form-control" id="id_oil_change" name="oil_change" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_financial" class="form-label">Financial</label>
+                <input type="text" class="form-control" id="id_financial" name="financial" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_status" class="form-label">Status</label>
+                <select class="form-control" id="id_status" name="status" required>
+                    <option value="">Select status</option>
+                    <option value="Available">Available</option>
+                    <option value="Rented">Rented</option>
+                    <option value="Maintenance">Maintenance</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="id_car_image" class="form-label">Car Image</label>
+                <input type="file" class="form-control" id="id_car_image" name="car_image" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Add Car</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

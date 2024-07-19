@@ -143,6 +143,7 @@ h1{
 }
 
 .percent{
+    text-align: end;
     color: white;
     color: #44E236;
     font-size: 12px;
@@ -197,4 +198,16 @@ h1{
 .dashboard-row-first img{
     padding-right: 5px;
     padding-bottom: 2px;
+}
+
+.supportModal{
+    width: 300px;
+    height: 200px;
+    background-color: #414141;
+    border-radius: 20px;
+    position: absolute;
+    left: 40%;
+    top: 50%;
+    z-index: 1;
+    display: none;
 }
