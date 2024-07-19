@@ -94,10 +94,11 @@ h1{
 
 .main-row{
     display: flex;
+    margin-bottom: -10px;
 }
 
 .financial{
-    height: 557px;
+    height: 600px;
     width: 50%;
     border-radius: 20px;
     margin-top: 20px;
@@ -105,13 +106,21 @@ h1{
 }
 
 .chart{
-    height: 557px;
+    height: 100%;
     width: 100%;
     border-radius: 20px;
     margin-top: 20px;
     background-color: #242425;
+    display: flex;
+    flex-direction: column;
 }
 
+.right-row{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 600px;
+}
 .financial-title{
     font-size: 18px;
     font-family: 'Lufga', sans-serif; 
@@ -125,4 +134,67 @@ h1{
     gap: 20px;
     display: flex;
     justify-content: space-between;
+}
+
+.under-line{
+    border-bottom: 0.7px solid #414141;
+    display: flex;
+    justify-content: space-between;
+}
+
+.percent{
+    color: white;
+    color: #44E236;
+    font-size: 12px;
+    font-family: 'Lufga', sans-serif; 
+    padding-right: 10px;
+}
+
+.percent h5{
+    color: white;
+    font-weight: 300;
+}
+
+
+.oil-change{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 20px;
+    background-color: #242425;
+}
+
+.inside-right-row{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+}
+
+.dashboard-row-first{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.dashboard-row-first button{
+    border-radius: 100px;
+    color: white;
+    font-family: 'Lufga', sans-serif;
+    border: none;
+    font-size: 16px;
+    margin-left: 5px;
+    font-weight: 300;
+    padding: 10px 15px 10px 15px;
+    background-color: #242425;
+}
+
+.dashboard-buttons{
+    width: -1px;
+}
+
+.dashboard-row-first img{
+    padding-right: 5px;
+    padding-bottom: 2px;
 }

@@ -9,6 +9,7 @@
     }
     h1{
         color: white;
+        font-weight: 400;
     }
     
 </style>
@@ -17,7 +18,15 @@
     <button class="active-button"><img src="{% static 'images/dashboard.svg' %}" alt="Dashboard Icon">Dashboard</button>
     <button class="support-button"><img src="{% static 'images/headphone.svg' %}" alt="Dashboard Icon"> Support</button>
 </div>
-<h1>Client dashboard</h1>
+<br>
+<div class="dashboard-row-first">
+    <h1>Client dashboard</h1>
+    <div class="dashboard-buttons">
+        <button><img src="{% static 'images/calendar.svg' %}" alt="Calendar Icon">22-27 Jan, 2024</button>
+        <button><img src="{% static 'images/report.svg' %}" alt="Report Icon">Create report</button>
+    </div>
+</div>
+
 
 <div class="recent-car-row">
     <div class="car">
@@ -78,17 +87,44 @@
 
 
 
+
 <div class="main-part">
     <div class="financial">
         <h1 class="financial-title">Financial</h1>
+        {% for car in cars  %}
+        <br>
+        <div class="under-line">
+            <div class="main-row">
+                <img src="{% static 'images/car-1.png' %}" alt="Dashboard Icon">
+                <div class="recent-car">
+                    <h4 class="car-title">{{ car.name }}</h4>
+                    <p class="car-subtitle">{{ car.renter_name }}</p>
+                </div>
+            </div>
+            <div class="percent">+10.56%
+                <h5>{{ car.financial }}</h5>
+            </div>
+        </div>
+        {% endfor %}
     </div>
     
-    <div class="chart">
-        <h1 class="financial-title">Chart</h1>
+    <div class="right-row">
+        <div class="chart">
+            <h1 class="financial-title">Chart</h1>
+        </div>
+        <div class="inside-right-row">
+            <div class="oil-change">
+                <h1 class="financial-title">Oil-change</h1>
+            </div>
+            <div class="oil-change">
+                <h1 class="financial-title">Maintenance history</h1>
+            </div>
+        </div>
     </div>
-    
 </div>
 
+<br>
+<br>
 
 
 {% endif %}
