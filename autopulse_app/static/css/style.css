@@ -1,6 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/lufga');
 body{
-    background-color: #191919;
+    background-color: #F8F9FB;
     font-family: 'Lufga', sans-serif;
 }
 
@@ -210,4 +210,12 @@ h1{
     top: 50%;
     z-index: 1;
     display: none;
+}
+
+
+.add-car-form{
+    display: flex;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
 }

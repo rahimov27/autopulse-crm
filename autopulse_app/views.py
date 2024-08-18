@@ -1,10 +1,9 @@
-# views.py
 from rest_framework import viewsets, permissions
-from .models import Car
-from .serializers import CarSerializer
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .models import Car, CarImage
+from .serializers import CarSerializer
 from .forms import AddCarForm, SignUpForm, UpdateCarForm
 
 
@@ -83,20 +82,51 @@ def delete_car(request, pk):
 
 def add_car(request):
     if request.method == "POST":
-        form = AddCarForm(request.POST, request.FILES)
-        if form.is_valid():
-            car = form.save(commit=False)
+        car_form = AddCarForm(request.POST, request.FILES)
+        if car_form.is_valid():
+            car = car_form.save(commit=False)
             car.user = request.user
             car.save()
+
+            images = request.FILES.getlist("car_images")
+            for image in images:
+                CarImage.objects.create(car=car, image=image)
+
             messages.success(request, "Car added successfully.")
             return redirect("home")
         else:
+            print(car_form.errors)  # Debugging
             messages.error(
                 request, "There was an error adding the car. Please try again."
             )
     else:
-        form = AddCarForm()
-    return render(request, "add_car.html", {"form": form})
+        car_form = AddCarForm()
+
+    return render(request, "add_car.html", {"car_form": car_form})
+
+
+def update_car(request, pk):
+    car = get_object_or_404(Car, pk=pk, user=request.user)
+    if request.method == "POST":
+        form = UpdateCarForm(request.POST, request.FILES, instance=car)
+        if form.is_valid():
+            form.save()
+
+            images = request.FILES.getlist("car_images")
+            if images:
+                car.images.all().delete()  # Optionally, clear existing images
+                for image in images:
+                    CarImage.objects.create(car=car, image=image)
+
+            messages.success(request, "Car updated successfully.")
+            return redirect("home")
+        else:
+            messages.error(
+                request, "There was an error updating the car. Please try again."
+            )
+    else:
+        form = UpdateCarForm(instance=car)
+    return render(request, "update_car.html", {"form": form, "car": car})
 
 
 def dashboard(request):
@@ -106,18 +136,15 @@ def dashboard(request):
     return render(request, "dashboard.html", {"cars": cars})
 
 
-def update_car(request, pk):
-    car = get_object_or_404(Car, pk=pk, user=request.user)
-    if request.method == "POST":
-        form = AddCarForm(request.POST, instance=car)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Car updated successfully.")
-            return redirect("home")
-        else:
-            messages.error(
-                request, "There was an error updating the car. Please try again."
-            )
-    else:
-        form = AddCarForm(instance=car)
-    return render(request, "update_car.html", {"form": form, "car": car})
+def cars(request):
+    cars = (
+        Car.objects.filter(user=request.user) if request.user.is_authenticated else None
+    )
+    return render(request, "cars.html", {"cars": cars})
+
+
+def customers(request):
+    customers = (
+        Car.objects.filter(user=request.user) if request.user.is_authenticated else None
+    )
+    return render(request, "customers.html")

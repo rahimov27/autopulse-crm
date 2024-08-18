@@ -1,4 +1,3 @@
-# models.py
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -14,7 +13,14 @@ class Car(models.Model):
     financial = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=100)
     final_odometer = models.IntegerField(blank=True, null=True)
-    car_image = models.ImageField(null=True, blank=True, upload_to="images/")
 
     def __str__(self):
         return self.name
+
+
+class CarImage(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to="car_images/")
+
+    def __str__(self):
+        return f"Image for {self.car.name}"

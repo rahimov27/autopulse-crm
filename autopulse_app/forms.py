@@ -1,8 +1,7 @@
-# forms.py
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Car
+from .models import Car, CarImage
 
 
 class SignUpForm(UserCreationForm):
@@ -26,8 +25,13 @@ class AddCarForm(forms.ModelForm):
             "financial",
             "status",
             "final_odometer",
-            "car_image",
         ]
+
+
+class CarImageForm(forms.ModelForm):
+    class Meta:
+        model = CarImage
+        fields = ["image"]
 
 
 class UpdateCarForm(forms.ModelForm):
@@ -43,5 +47,4 @@ class UpdateCarForm(forms.ModelForm):
             "financial",
             "status",
             "final_odometer",
-            "car_image",
         ]
